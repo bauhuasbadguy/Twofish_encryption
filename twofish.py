@@ -868,14 +868,18 @@ def decrypt_word(Cyphertext, S, K, rounds = 16):
 
 def encrypt_message(message, S, K, rounds = 16):
 
-    print(len(message) % 16)
-
+    #print(len(message) % 16)
+    #convert the message to numbers to prevent character bugs
     message_num = text2num(message)
 
-    print(message_num)
+    #print(message_num)
 
     to_encrypt = pad_number(message_num, 128)
-    print(to_encrypt)
+    #print(to_encrypt)
+
+    #if the target is shorter than 128 bits make sure its still a list
+    if not isinstance(to_encrypt, list):
+        to_encrypt = [to_encrypt]
 
     cypher_text = ''
     for i, word in enumerate(to_encrypt):
@@ -900,6 +904,10 @@ def decrypt_message(message, S, K, rounds = 16):
     #message_num = text2num(message)
 
     to_encrypt = pad_number(message, 128)
+
+    #if the target is shorter than 128 bits make sure its still a list
+    if not isinstance(to_encrypt, list):
+        to_encrypt = [to_encrypt]
 
 
 
@@ -935,7 +943,7 @@ rounds = 16
 #there's a wierd bug where if the number of characters is a certan amount a random
 #set of characters appear at the beginning. It's really strange
 
-test = 'hello there, this is a test of how well a can encrypt things and all that jazz ys'
+test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
 
 [num_C, Cypher_text] = encrypt_message(test, S, K)
 
