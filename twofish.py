@@ -27,15 +27,15 @@ import math
 #Multiplication in the GF(256) field
 def GF256multiply(A, B):
     #multiply two numbers in the GF(256) field defined by field
-    #This works using the peasents multiplication
+    #This works using the peasants multiplication algoruthm
     p = 0
-    #V is the primitve polynomial
+    #V is the primitive polynomial
     V = 283
     #count through n
     for counter in range(8):
         if (B & 1) == 1:
             #add A to the product if B is odd like you
-            #do in the peasents algorithm
+            #do in the peasants algorithm
             #does'nt hit when B has hit zero
             #to increase speed tell the code to stop
             #when B = 0
@@ -481,7 +481,7 @@ def q0(number):
 
 
     #move a3 and b3 through a substitution box
-    [a4, b4] = [t[2][a1], t[3][b1]]
+    [a4, b4] = [t[2][a3], t[3][b3]]
 
 
     #recombine the nibbles into a byte
@@ -653,7 +653,6 @@ def find_S_vector(mk):
 
             S_vector[l].append(s)
 
-
     S = []
     for i in range(len(S_vector[0])):
 
@@ -673,7 +672,7 @@ def gen_keys(key, N = 128, rounds = 16):
 
     key_lengths = [128, 192, 256]
 
-    
+    #
     m = pwdtokey(key)
 
 
@@ -682,7 +681,7 @@ def gen_keys(key, N = 128, rounds = 16):
         m = int(bin(m)[2:N+2], 2)
         
 
-
+    #
     [mk, Mo, Me, Mi] = find_M_vectors(m)
 
 
@@ -691,11 +690,10 @@ def gen_keys(key, N = 128, rounds = 16):
     bin_key = bin_key[2:]
     paded_key = pad_number(m,128)
 
-
-
+    #
     S = find_S_vector(mk)
 
-
+    #
     K = generate_K(Me, Mo, rounds)
     
     return [K, S]
@@ -712,8 +710,6 @@ def encrypt_word(message, S, K, rounds = 16):
            [91, 239, 239, 1],
            [239, 91, 1, 239],
            [239, 1, 239, 91]]
-
-
 
     m = message
     #E is the message in the process of encryption
@@ -943,7 +939,9 @@ rounds = 16
 #there's a wierd bug where if the number of characters is a certan amount a random
 #set of characters appear at the beginning. It's really strange
 
-test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
+#test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
+test = 'hello there, this is a test'
+
 
 [num_C, Cypher_text] = encrypt_message(test, S, K)
 
