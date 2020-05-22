@@ -404,12 +404,13 @@ def H_function(W, L, MDS):
     w3 = int(W[16:24], 2)
     w4 = int(W[24:32], 2)
 
-
+    #aquire w vectors using the q functions
     w1 = q1(w1)
     w2 = q0(w2)
     w3 = q1(w3)
     w4 = q0(w4)
 
+    #pad out the w vectors
     w1 = pad_number(w1, 8)
     w2 = pad_number(w2, 8)
     w3 = pad_number(w3, 8)
@@ -430,32 +431,26 @@ def H_function(W, L, MDS):
     #the vector elements into binary and then combining the 8 bit words
     #into a 32 bit word
     Z = ''
-
     for i, c in enumerate(C):
 
         Z = Z + pad_number(c[0], 8)
 
-
-    
     return Z
 
 
 #function for the q1 s-box. Splits the number into two nibbles
 #and then passes each of those nibbles through 3 mixing steps
 #recombing them in the end the other way around
-def q0(number):
+def q0(X):
     #not sure this is correct the twofish paper
     #was very sittily worded
 
-
+    #set the t substitution blocks, notice everything here is 4 bit
+    #these are different for q0 and q1
     t = [[8, 1, 7, 13, 6, 15, 3, 2, 0, 11, 5, 9, 14, 12, 10, 4],
             [14, 12, 11, 8, 1, 2, 3, 5, 15, 4, 10, 6, 7, 0, 9, 13],
             [11, 10, 5, 14, 6, 13, 9, 0, 12, 8, 15, 3, 2, 4, 7, 1],
             [13, 7, 15, 4, 1, 2, 6, 14, 9, 11, 3, 0, 8, 5, 12, 10]]
-
-
-    X = number
-
 
 
     #split the input into two nibbles
@@ -464,10 +459,11 @@ def q0(number):
 
 
     #XOR nibble a0 and nibble b0 to get a1
-
+    
+    #a1 = a0 XOR b0
     a1 = a0 ^ b0
 
-    
+    #b1 = a0 XOR ROR4(b0, 1) XOR 8a0 % 16
     b1 = ((a0 ^ ROR(b0, 1, 4)) ^ (8 * a0)) % 16
 
 
@@ -493,20 +489,18 @@ def q0(number):
 
 #function for the q1 s-box. The same as the q0 s-box
 #but with a different t vector
-def q1(number):
+def q1(X):
     #not sure this is correct the twofish paper
     #was very sittily worded
 
-
+    #set the t substitution blocks, notice everything here is 4 bit
+    #these are different for q0 and q1
     t = [[2, 8, 11, 13, 15, 7, 6, 14, 3, 1, 9, 4, 0, 10, 12, 5],
       [1, 14, 2, 11, 4, 12, 3, 7, 6, 13, 10, 5, 15, 9, 0, 8],
       [4, 12, 7, 5, 1, 6, 9, 10, 0, 14, 13, 8, 2, 11, 3, 15],
       [11, 9, 5, 1, 12, 3, 13, 14, 6, 4, 7, 15, 2, 0, 8, 10]]
 
-
-    X = number
-
-
+    
     #split the input into two nibbles
     a0 = int(X / 16)
     b0 = int(X % 16)
@@ -527,7 +521,7 @@ def q1(number):
 
 
     #move a3 and b3 through a substitution box
-    [a4, b4] = [t[2][a1], t[3][b1]]
+    [a4, b4] = [t[2][a3], t[3][b3]]
 
     #recombine nibbles into a byte
     y = (16 * b4) + a4
@@ -637,9 +631,11 @@ def find_S_vector(mk):
     #convert mk so it can be used by our
     #matrix multiplication functions
     T = transpose_vector(mk)
-
+    
+    #the empty s vector which we will populate
     S_vector = [[], [], [], []]
-    #rint T
+    
+    #find the value of k, which sets the number of blocks
     k = len(mk)/8
 
     for i in range(int(len(mk)/8)):
@@ -670,7 +666,8 @@ def find_S_vector(mk):
 
 def gen_keys(key, N = 128, rounds = 16):
 
-    key_lengths = [128, 192, 256]
+    #these are the 3 versions of twofish, with key lengths of 128 bits, 192 bits and 256 bits
+    #key_lengths = [128, 192, 256]
 
     #
     m = pwdtokey(key)
@@ -939,9 +936,9 @@ rounds = 16
 #there's a wierd bug where if the number of characters is a certan amount a random
 #set of characters appear at the beginning. It's really strange
 
-#test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
-test = 'hello there, this is a test'
-
+test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
+#test = 'hello there, this is a test'
+#test = ''
 
 [num_C, Cypher_text] = encrypt_message(test, S, K)
 
