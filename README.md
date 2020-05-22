@@ -32,7 +32,7 @@ The g-function shown here is defined as
 Where the S-boxes are defined using the input key using the function shown below
 
 <p align="center">
-<image src = './h_function_on_side.png' width="1000px;"></image>
+<image src = './h_function_on_side.png' width="800px;"></image>
 </p>
 
 ### Decryption ###
