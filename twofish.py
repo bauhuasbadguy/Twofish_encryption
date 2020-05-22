@@ -683,9 +683,9 @@ def gen_keys(key, N = 128, rounds = 16):
 
 
     #find the s-boxes
-    bin_key = bin(m)
-    bin_key = bin_key[2:]
-    paded_key = pad_number(m,128)
+    #bin_key = bin(m)
+    #bin_key = bin_key[2:]
+    #paded_key = pad_number(m,128)
 
     #
     S = find_S_vector(mk)
@@ -938,7 +938,7 @@ rounds = 16
 
 test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
 #test = 'hello there, this is a test'
-#test = ''
+#test =''
 
 [num_C, Cypher_text] = encrypt_message(test, S, K)
 

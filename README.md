@@ -4,6 +4,7 @@ This is a description of the Twofish encryption algorithm.
 
 ## IMPORTANT NOTE !!! ##
 
+I am just some guy in a room, I have no training in cryptography and this code has not been checked by anyone with real training in cryptography. Just going through the code for this write up I found at least one major error in the implementation so please do not use this code for any real encryption purposes. I hope you will find this document informative and that the code may be helpful to you in understanding the Twofish algorithm but please do not attempt to use this code for real world encryption.
 
 ## Algorithm description ##
 
@@ -25,7 +26,7 @@ The function h defines the s-boxes in the function g
 The g-function shown here is defined as 
 
 <p align="center">
-<image src = './g_function.png' width="200px;"></image>
+<image src = './g_function.png' width="600px;"></image>
 </p>
 
 Where the S-boxes are defined using the input key using the function shown below
