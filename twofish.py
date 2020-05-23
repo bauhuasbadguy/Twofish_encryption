@@ -225,6 +225,11 @@ def pwdtokey(password):
 def num2text(number):
 
     binnumberlist = pad_number(number, 8)
+    
+    #print('BIN NUMBER LIST')
+    #print(binnumberlist)
+    #print('***')
+    
     text = ''
 
     for i, binnumber in enumerate(binnumberlist):
@@ -260,7 +265,7 @@ def pad_number(number, pad_val):
     startlen = len(number)
 
 
-    if startlen < pad_val:
+    if startlen <= pad_val:
 
         padinglen = pad_val - startlen
 
@@ -270,19 +275,25 @@ def pad_number(number, pad_val):
 
     elif startlen > pad_val:
 
-        units = int(startlen/pad_val)
+        #units = int(startlen/pad_val)
+
         #set up the padding for the left over
         #non-64 bit integer
-        extrabit = pad_val - (startlen % pad_val)
+        
+        if startlen % pad_val != 0:
+        
+            extrabit = pad_val - (startlen % pad_val)
+            
+        else:
+            extrabit = 0
         
         pading = '0' * extrabit
 
         binnumber = pading + number
 
-        number = []
-        for i in range(units + 1):
-            number.append(binnumber[0:pad_val])
-            binnumber = binnumber[pad_val:]
+        #split the padded number into the required number of sections
+        number = [binnumber[i:pad_val + i] for i in range(0, len(binnumber), pad_val)]
+
 
 
     return number
@@ -893,17 +904,15 @@ def encrypt_message(message, S, K, rounds = 16):
 
 def decrypt_message(message, S, K, rounds = 16):
 
-
-    #message_num = text2num(message)
-
+    #convert the message into 128 bit binary blocks
     to_encrypt = pad_number(message, 128)
-
+    
     #if the target is shorter than 128 bits make sure its still a list
     if not isinstance(to_encrypt, list):
         to_encrypt = [to_encrypt]
 
 
-
+    #the retrned text
     cypher_text = ''
     for i, word in enumerate(to_encrypt):
 
@@ -938,7 +947,7 @@ rounds = 16
 
 test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
 #test = 'hello there, this is a test'
-#test =''
+
 
 [num_C, Cypher_text] = encrypt_message(test, S, K)
 
@@ -947,3 +956,10 @@ print(Cypher_text)
 plain_text = decrypt_message(num_C, S, K, rounds = 16)
 
 print(plain_text)
+
+#try key reversal
+
+#test_text = encrypt_message(Cypher_text, S[::-1], K[::-1])
+
+#print('++++++++++')
+#print(test_text)
