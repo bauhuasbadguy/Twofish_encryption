@@ -37,7 +37,7 @@ The third word vector, S is henerated using a matrix multiplication in the GF(2<
 The function h is used to define the keys and what are (incorectly?) labeled S-boxes in the paper
 
 <p align="center">
-<image src = './Twofish_encryption_structure_V1.png' width="600px;"></image>
+<image src = './Twofish_encryption_structure_V2.png' width="600px;"></image>
 </p>
 
 The g-function shown here is defined as 
