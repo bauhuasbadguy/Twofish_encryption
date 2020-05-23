@@ -26,7 +26,7 @@ M<sub>o</sub> = (M<sub>1</sub>, M<sub>3</sub>, ..., M<sub>2&sigma;-1</sub>)
 The third word vector, S is henerated using a matrix multiplication in the GF(2<sup>8</sup>) field. First a 8 element vector is created from the vector m, which is the key split into bytes (8 bit words). Now the words of the S vector will be generated using the logic shown below (in an png image because I can't get matrix mutliplication to look right in markdown)
 
 <p>
-<image src = './S_vector_matmul.png' width="200px;"></image>
+<image src = './S_vector_matmul.png' width="350px;"></image>
 </p>
 
 
