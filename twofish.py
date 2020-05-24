@@ -39,6 +39,8 @@ def GF256multiply(A, B):
             #does'nt hit when B has hit zero
             #to increase speed tell the code to stop
             #when B = 0
+            
+            #Add A to p in GF(2^8) using a XOR
             p ^= A
 
             
@@ -52,6 +54,11 @@ def GF256multiply(A, B):
             A = A ^ V
         #shift B one to the left
         B = B >> 1
+        
+        if B == 0:
+            break
+        
+        #print(B)
 
 
     return p
@@ -689,7 +696,7 @@ def gen_keys(key, N = 128, rounds = 16):
         m = int(bin(m)[2:N+2], 2)
         
 
-    #
+    #calculate the M vectors
     [mk, Mo, Me, Mi] = find_M_vectors(m)
 
 
@@ -749,10 +756,15 @@ def encrypt_word(message, S, K, rounds = 16):
 
         #first find the things to XOR with E[2] and E[3]
         #E[2] and E[3] are the only things that change during F
+        
+        #send e0 straight through the h-function
         e[0] = H_function(E[0], S, MDS)
-
+        
+        #Rotate left e1 by 8 places
         e[1] = ROL(int(E[1], 2), 8, 32)
+        #pad e1 to 32 bits
         e[1] = pad_number(e[1], 32)
+        #perform the H function on e1 with the S vector
         e[1] = H_function(e[1], S, MDS)
 
         [e[0], e[1]] = PHT(e[0], e[1])
@@ -860,7 +872,8 @@ def decrypt_word(Cyphertext, S, K, rounds = 16):
     for i, e in enumerate(E):
 
         E[i] = pad_number(int(e, 2) ^ K[i], 32)
-        
+    
+    #combine the 4 32 bit words into a usable output
     p = E[0] + E[1] + E[2] + E[3]
 
     #P = int(p, 2)
@@ -945,7 +958,7 @@ rounds = 16
 #there's a wierd bug where if the number of characters is a certan amount a random
 #set of characters appear at the beginning. It's really strange
 
-test = 'hello there,this is a test of how well a can encrypt things and all that jazz ys'
+test = 'hello there,this is a test of how well I can encrypt things and all that jazz. Did it work?'
 #test = 'hello there, this is a test'
 
 
