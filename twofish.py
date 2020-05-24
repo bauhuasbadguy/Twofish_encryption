@@ -766,25 +766,32 @@ def encrypt_word(message, S, K, rounds = 16):
         e[1] = pad_number(e[1], 32)
         #perform the H function on e1 with the S vector
         e[1] = H_function(e[1], S, MDS)
-
+        
+        #perform the pseudo hamilton transform
         [e[0], e[1]] = PHT(e[0], e[1])
 
+        #combine e0 and e1 with their respective keys
         e[0] = (e[0] + K[(2*r) + 8]) % pow(2, 32)
         e[1] = (e[1] + K[(2*r) + 9]) % pow(2, 32)
 
 
-
+        #XOR e2 with the processed e0
         e[2] = e[0] ^ int(E[2], 2)
+        #rotate e2 1 bit to the right
         e[2] = ROR(e[2], 1, 32)
 
-
+        #roate e3 one bit to the left
         e[3] = ROL(int(E[3], 2), 1, 32)
+        #XOR e3 and the processed e1 together
         e[3] = e[3] ^ e[1]
 
-        #swap the position of the 32 bit words 
+        #swap the position of the 32 bit words, note that we are using the inputted
+        #values of e0 and e1, not the processed values
         E = [pad_number(e[2], 32), pad_number(e[3], 32), E[0], E[1]]
 
-
+    
+    #undo the final swap
+    #E = [E[2], E[3], E[0], E[1]]
 
 
     #whiten the 32 bit words again
@@ -792,12 +799,9 @@ def encrypt_word(message, S, K, rounds = 16):
 
         E[i] = pad_number(int(e, 2) ^ K[i + 4], 32)
 
-    #print E
+
     #recombine the 32 bit words
-
     C = E[0] + E[1] + E[2] + E[3]
-
-
 
     return C
 
@@ -840,32 +844,43 @@ def decrypt_word(Cyphertext, S, K, rounds = 16):
 
         #first find the things to XOR with E[2] and E[3]
         #E[2] and E[3] are the only things that change during F
+        #send e[0] through the h function with the S vector
         e[0] = H_function(E[0], S, MDS)
 
+        #Rotate e1 left by 8 bits
         e[1] = ROL(int(E[1], 2), 8, 32)
+        #make sure e1 is properly padded
         e[1] = pad_number(e[1], 32)
+        #send e1 through the h function with the S vector
         e[1] = H_function(e[1], S, MDS)
-
+        
+        #perform the pseudo-hamilton transform, combining e0 and e1
         [e[0], e[1]] = PHT(e[0], e[1])
-
+        
+        #apply the XOR with the keys to e0 and e1
         e[0] = (e[0] + K[(2*r) + 8]) % pow(2, 32)
         e[1] = (e[1] + K[(2*r) + 9]) % pow(2, 32)
 
         #do the changing of E[2]/E[3] in reverse
 
-        
+        # rotate e2 one place to the left
         e[2] = ROL(int(E[2], 2), 1, 32)
+        #XOR e2 with the processed e0
         e[2] = e[0] ^ e[2]
 
-        
+        #XOR e3 with the processed e1
         e[3] = int(E[3], 2) ^ e[1]
+        #rotate e3 one place to the right
         e[3] = ROR(e[3], 1, 32)
 
-
+        #make sure each word is properly padded
         for i, ee in enumerate(e):
             e[i] = pad_number(ee, 32)
 
         E = [E[0], E[1], e[2], e[3]]
+        
+    #undo the final swap
+    #E = [E[2], E[3], E[0], E[1]]
         
 
     #remove the first whitening step
