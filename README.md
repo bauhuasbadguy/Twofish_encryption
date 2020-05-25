@@ -8,7 +8,7 @@ I am just some guy in a room, I have no training in cryptography and this code h
 
 ## Algorithm description ##
 
-The code in this repo can be devided into two sections, a subkey generation section and a encryption/decryption section.
+The code in this repo can be divided into two sections, a subkey generation section and a encryption/decryption section.
 
 ### Key generation ###
 
@@ -25,7 +25,7 @@ where N is the length of the key. We are now going to convert the key M into 2&s
 M<sub>e</sub> = (M<sub>0</sub>, M<sub>2</sub>, ..., M<sub>2&sigma;-2</sub>)
 M<sub>o</sub> = (M<sub>1</sub>, M<sub>3</sub>, ..., M<sub>2&sigma;-1</sub>)
 
-The third word vector, S is henerated using a matrix multiplication in the GF(2<sup>8</sup>) field. First a 8 element vector is created from the vector m, which is the key split into bytes (8 bit words). Now the words of the S vector will be generated using the logic shown below (in an png image because I can't get matrix mutliplication to look right in markdown)
+The third word vector, S is generated using a matrix multiplication in the GF(2<sup>8</sup>) field. First a 8 element vector is created from the vector m, which is the key split into bytes (8 bit words). Now the words of the S vector will be generated using the logic shown below (in an png image because I can't get matrix mutliplication to look right in markdown)
 
 <p>
 <image src = './S_vector_matmul.png' width="350px;"></image>
@@ -39,7 +39,7 @@ The field GF(2<sup>8</sup>) is a finite field containing 2<sup>8</sup> elements,
 
 Addition in this field is performed using a XOR operation, doubling is done using a bitwise shift to the left and halving is done using a bitwise shift to the right. Knowing this we can use Russian peasant multiplication in order to find a way to perform multiplication within GF(2<sup>8</sup>)
 
-Russian peasant multiplication is an algorithm for performing multiplication whereupon you can multiply two numbers A and B. In this algorithm we will first intialise p as zero before starting the first round of the multiplication process.
+Russian peasant multiplication is an algorithm for performing multiplication whereupon you can multiply two numbers A and B. In this algorithm we will first initialise p as zero before starting the first round of the multiplication process.
 
  With each round we first check if B is odd, if it is we add A to p (using XOR since we are working in GF(2<sup>8</sup>)). Next we double A, using a rightwise bitshift, and check if it is outside GF(2<sup>8</sup>). If A is outside GF(2<sup>8</sup>) we will bring the value of A back inside the field by XORing A with the primitive polynomial, valued at 283 for GF(2<sup>8</sup>). Next we will half B using a bitshift to the left, if this results in B being equal to zero we end the algorithm and return p as the result. Otherwise we go back to the start of the loop and perform another round.
 
@@ -96,7 +96,7 @@ The general shape of the encryption function is shown below.
 <image src = './Twofish_encryption_structure_V2.png' width="600px;"></image>
 </p>
 
-In this diagram you can see the subkeys K<sub>0-3</sub> being used as an initial whiteining step as the 128 bit input is broken into 4, 32 bit blocks. Then the left hand side words are put through h blocks with the S vector resulting in two 32 bit words which are crossed with one another in a PHT block which uses modulo addition to combine them. The results are then modulo added to the subkeys K<sub>2r+8</sub> and K<sub>2r + 9</sub> where r is the round number. The results from this are XORed with segments from the right hand side of the word after a ROL by one bit is applied to word R<sub>3</sub>. Once the XOR is done a ROR by one bit is applied to R<sub>2</sub> and the left and right sides are swaped around so that the next round may begin. The encryption function is applied 16 times before a final swap to undo the swap of the final round and the output is whitened using the subkeys K<sub>4-7</sub>. The resulting 4, 32 bit words are then recombined and returned as the encrypted block.
+In this diagram you can see the subkeys K<sub>0-3</sub> being used as an initial whitening step as the 128 bit input is broken into 4, 32 bit blocks. Then the left hand side words are put through h blocks with the S vector resulting in two 32 bit words which are crossed with one another in a PHT block which uses modulo addition to combine them. The results are then modulo added to the subkeys K<sub>2r+8</sub> and K<sub>2r + 9</sub> where r is the round number. The results from this are XORed with segments from the right hand side of the word after a ROL by one bit is applied to word R<sub>3</sub>. Once the XOR is done a ROR by one bit is applied to R<sub>2</sub> and the left and right sides are swaped around so that the next round may begin. The encryption function is applied 16 times before a final swap to undo the swap of the final round and the output is whitened using the subkeys K<sub>4-7</sub>. The resulting 4, 32 bit words are then recombined and returned as the encrypted block.
 
 ### Decryption ###
 
