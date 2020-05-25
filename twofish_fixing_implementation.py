@@ -734,8 +734,6 @@ def encrypt_word(message, S, K, rounds = 16):
         E.append(m[(i * 32):((i * 32) + 32)])
 
 
-
-        
     #First do the whitening
     for i, e in enumerate(E):
 
@@ -770,7 +768,7 @@ def encrypt_word(message, S, K, rounds = 16):
         #perform the pseudo hamilton transform
         [e[0], e[1]] = PHT(e[0], e[1])
 
-        #combine e0 and e1 with their respective keys
+        #combine e0 and e1 with their respective keys using modulo addition
         e[0] = (e[0] + K[(2*r) + 8]) % pow(2, 32)
         e[1] = (e[1] + K[(2*r) + 9]) % pow(2, 32)
 
@@ -793,13 +791,12 @@ def encrypt_word(message, S, K, rounds = 16):
     #undo the final swap
     E = [E[2], E[3], E[0], E[1]]
 
-
     #whiten the 32 bit words again
     for i, e in enumerate(E):
 
         E[i] = pad_number(int(e, 2) ^ K[i + 4], 32)
-
-
+        
+        
     #recombine the 32 bit words
     C = E[0] + E[1] + E[2] + E[3]
 
@@ -828,16 +825,16 @@ def decrypt_word(Cyphertext, S, K, rounds = 16):
 
         E[i] = pad_number(int(e, 2) ^ K[i + 4], 32)
 
-
     #redo the final swap
     E = [E[2], E[3], E[0], E[1]]
 
     #the fistal network runs 'rounds' times
     for R in range(rounds):
+        
         #we have to reverse the process so r = Rounds - r
         r = rounds - 1 - R
-        #swap the position of the 32 bit words
-
+        
+        #swap the positions of the 32 bit words
         E = [E[2], E[3], E[0], E[1]]
 
         #now enter the fistel network
@@ -901,63 +898,6 @@ def decrypt_word(Cyphertext, S, K, rounds = 16):
     #return the encrypted message
     return p
 
-def encrypt_message(message, S, K, rounds = 16):
-
-    #print(len(message) % 16)
-    #convert the message to numbers to prevent character bugs
-    message_num = text2num(message)
-
-    #print(message_num)
-
-    to_encrypt = pad_number(message_num, 128)
-    #print(to_encrypt)
-
-    #if the target is shorter than 128 bits make sure its still a list
-    if not isinstance(to_encrypt, list):
-        to_encrypt = [to_encrypt]
-
-    cypher_text = ''
-    for i, word in enumerate(to_encrypt):
-
-        cypher_word = encrypt_word(word, S, K, rounds)
-
-
-        cypher_text = cypher_text + cypher_word
-
-
-    C = int(cypher_text, 2)
-
-
-    number_C = C
-    C = num2text(C)
-    
-    return [number_C, C]
-
-def decrypt_message(message, S, K, rounds = 16):
-
-    #convert the message into 128 bit binary blocks
-    to_encrypt = pad_number(message, 128)
-    
-    #if the target is shorter than 128 bits make sure its still a list
-    if not isinstance(to_encrypt, list):
-        to_encrypt = [to_encrypt]
-
-
-    #the retrned text
-    cypher_text = ''
-    for i, word in enumerate(to_encrypt):
-
-        cypher_word = decrypt_word(word, S, K, rounds)
-
-
-
-        cypher_text = cypher_text + cypher_word
-
-    C = int(cypher_text, 2)
-
-    C = num2text(C)
-
-    return C
 
 ######################
 ## End of functions ##
@@ -974,21 +914,18 @@ rounds = 16
 [K, S] = gen_keys(key, N, rounds)
 
 
-test = 'hello there,this is a test of how well I can encrypt things and all that jazz. Did it work?'
-#test = 'hello there, this is a test'
+#here we are just testing the word encyption and decryption
+
+#128 bit input binary word
+input_word = '01101111011001100010000001101000011011110111011100100000011101110110010101101100011011000010000001001001001000000110001101100001'
 
 
-[num_C, Cypher_text] = encrypt_message(test, S, K)
+cypher_word = encrypt_word(input_word, S, K, rounds)
 
-print(Cypher_text)
+recovered_word = encrypt_word(cypher_word, S, K[::-1], rounds)
 
-plain_text = decrypt_message(num_C, S, K, rounds = 16)
 
-print(plain_text)
+print(input_word)
+print(recovered_word)
 
-#try key reversal
-
-#test_text = encrypt_message(Cypher_text, S[::-1], K[::-1])
-
-#print('++++++++++')
-#print(test_text)
+print(int(input_word, 2) ^ int(recovered_word, 2))

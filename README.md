@@ -100,7 +100,7 @@ In this diagram you can see the subkeys K<sub>0-3</sub> being used as an initial
 
 ### Decryption ###
 
-The decryption process is very similar to the encryption process except that there is a minor modification to the round structure. This is shown in the diagram below in which the alteration is highlighted with a red box.
+In order to perform decryption the process is run in reverse. The diagram for this is shown below
 
 <p align="center">
 <image src = './Twofish_decryption_structure_V1.png' width="600px;"></image>
