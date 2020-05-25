@@ -548,7 +548,7 @@ def q1(X):
     return y
 
 
-def find_M_vectors(Key):
+def find_M_vectors(Key, N):
 
     #find the binary key to see what we should pad to
     bin_key = bin(Key)
@@ -558,16 +558,16 @@ def find_M_vectors(Key):
     #work out what length to make the key. There are 3 break points
     #at 128, 192 and 256 bits. If were under a break point we pad out to
     #the next one
+    '''
     if len(bin_key) <= 128:
         N = 128
     elif len(bin_key) > 128 or len(Key) <= 192:
         N = 192
     elif len(bin_key) <= 256:
         N = 256
-
+    '''
     #Pad the key to N bits
     Key = pad_number(Key, N)
-
 
     N = len(Key)
     #find lower case k
@@ -685,7 +685,11 @@ def find_S_vector(mk):
 def gen_keys(key, N = 128, rounds = 16):
 
     #these are the 3 versions of twofish, with key lengths of 128 bits, 192 bits and 256 bits
-    #key_lengths = [128, 192, 256]
+    key_lengths = [128, 192, 256]
+    
+    if N not in key_lengths:
+        
+        raise Exception('The key length must be 128, 192 or 256, you have set key length to {0}. Please check and try again'.format(N))
 
     #
     m = pwdtokey(key)
@@ -694,10 +698,9 @@ def gen_keys(key, N = 128, rounds = 16):
     #if the password is too long cut it down to fit
     if len(bin(m)[2:]) > N:
         m = int(bin(m)[2:N+2], 2)
-        
 
     #calculate the M vectors
-    [mk, Mo, Me, Mi] = find_M_vectors(m)
+    [mk, Mo, Me, Mi] = find_M_vectors(m, N)
 
 
     #find the s-boxes
@@ -707,7 +710,7 @@ def gen_keys(key, N = 128, rounds = 16):
 
     #
     S = find_S_vector(mk)
-
+    
     #
     K = generate_K(Me, Mo, rounds)
     
@@ -967,7 +970,8 @@ def decrypt_message(message, S, K, rounds = 16):
 
 #set the key
 key = 'Superserialsecrets'
-N = 128
+#set the key length
+N = 256
 rounds = 16
 
 
@@ -978,7 +982,7 @@ test = 'hello there,this is a test of how well I can encrypt things and all that
 #test = 'hello there, this is a test'
 
 
-[num_C, Cypher_text] = encrypt_message(test, S, K)
+[num_C, Cypher_text] = encrypt_message(test, S, K, rounds = 16)
 
 print(Cypher_text)
 

@@ -1,6 +1,6 @@
 # README #
 
-This is a description of the Twofish encryption algorithm. Really it is the description of Twofish 128, 192 and 256 which are versions of Twofish with different key lengths. I am writing this to improve my understanding and also because I have found other descriptions of this algorithm I have found online to be confusing (there may be errors in what I have written). If you are trying to understand the Twofish algorithm I hope you will find this repo useful but this should not be used for encryption purposes. This code only has support for 128 bit keys, if I can be bothered at some point in the future I will add support for 192 and 256 bit keys.
+This is a description of the Twofish encryption algorithm. Really it is the description of Twofish 128, 192 and 256 which are versions of Twofish with different key lengths. I am writing this to improve my understanding and also because I have found other descriptions of this algorithm I have found online to be confusing (there may be errors in what I have written). If you are trying to understand the Twofish algorithm I hope you will find this repo useful but this should not be used for encryption purposes. This code has support for all three versions of Twofish by changing the value of N when generating the keys.
 
 ## IMPORTANT NOTE !!! ##
 
