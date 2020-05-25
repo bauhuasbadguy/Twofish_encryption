@@ -100,11 +100,13 @@ In this diagram you can see the subkeys K<sub>0-3</sub> being used as an initial
 
 ### Decryption ###
 
-In order to perform decryption the process is run in reverse. The diagram for this is shown below
+In order to perform decryption the process is run in reverse. The diagram for this is shown below.
 
 <p align="center">
 <image src = './Twofish_decryption_structure_V1.png' width="600px;"></image>
 </p>
+
+In this diagram the algorithm has been reversed as has the order of the keys being used with the swapping happening at the start of the round rather than the end of the round and ROR of e2 happening before e2 is XORed with the modified e0 and the ROL of e3 hapening after e3 is XORed with the modified e1.
 
 ### Sources ###
 

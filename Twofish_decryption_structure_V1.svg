@@ -710,11 +710,11 @@
      inkscape:window-width="1853"
      showgrid="false"
      inkscape:document-rotation="0"
-     inkscape:current-layer="g4384"
+     inkscape:current-layer="g2340-8"
      inkscape:document-units="mm"
-     inkscape:cy="790.27739"
-     inkscape:cx="789.66707"
-     inkscape:zoom="0.35"
+     inkscape:cy="754.09762"
+     inkscape:cx="896.51449"
+     inkscape:zoom="1.979899"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -1355,6 +1355,11 @@
              id="path877-3-3"
              sodipodi:nodetypes="cc" />
         </g>
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 218.84282,63.23211 v 37.22448"
+           id="path1093-3-5-6-4-4-7-36"
+           sodipodi:nodetypes="cc" />
         <g
            transform="translate(210.61341,32.330336)"
            id="g924-1">
@@ -1391,18 +1396,18 @@
                id="rect2329-6"
                width="24.492523"
                height="9.4925232"
-               x="134.29726"
-               y="91.171593" />
+               x="135.48558"
+               y="91.171242" />
             <text
                xml:space="preserve"
                style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-               x="135.67581"
-               y="98.292732"
+               x="136.42462"
+               y="98.474182"
                id="text1599-8"><tspan
                  sodipodi:role="line"
                  id="tspan1597-8"
-                 x="135.67581"
-                 y="98.292732"
+                 x="136.42462"
+                 y="98.474182"
                  style="font-size:7.05556px;stroke-width:0.264583">&gt;&gt;&gt;1</tspan></text>
           </g>
         </g>
@@ -1758,11 +1763,6 @@
             </g>
           </g>
         </g>
-        <path
-           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m 218.84282,63.23211 v 37.22448"
-           id="path1093-3-5-6-4-4-7-36"
-           sodipodi:nodetypes="cc" />
         <path
            style="fill:none;stroke:#000000;stroke-width:0.499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            d="m 233.82593,63.33564 v 87.66629"
