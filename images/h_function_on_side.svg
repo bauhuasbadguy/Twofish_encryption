@@ -9,9 +9,9 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:export-ydpi="96"
    inkscape:export-xdpi="96"
-   inkscape:export-filename="/home/stuart/Documents/encrytion_stuff/Twofish_encryption/h_function_on_side.png"
+   inkscape:export-filename="/home/stuart/Documents/encrytion_stuff/Twofish_encryption/images/h_function_on_side.png"
    sodipodi:docname="h_function_on_side.svg"
-   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
+   inkscape:version="1.0.2 (1.0.2+r75+1)"
    id="svg3011"
    version="1.1"
    viewBox="0 0 240 83"
@@ -501,16 +501,16 @@
   <sodipodi:namedview
      inkscape:window-maximized="1"
      inkscape:window-y="27"
-     inkscape:window-x="67"
-     inkscape:window-height="1025"
-     inkscape:window-width="1853"
+     inkscape:window-x="72"
+     inkscape:window-height="1016"
+     inkscape:window-width="1848"
      showgrid="false"
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="174.69798"
-     inkscape:cx="317.29497"
-     inkscape:zoom="1.4142136"
+     inkscape:cy="198.43998"
+     inkscape:cx="387.50817"
+     inkscape:zoom="1"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -525,7 +525,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -533,6 +533,13 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
+    <rect
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linejoin:round"
+       id="rect10843"
+       width="236.68332"
+       height="79.321259"
+       x="0.86440945"
+       y="1.2943977" />
     <text
        id="text3576"
        y="40.900482"

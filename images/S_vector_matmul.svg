@@ -9,9 +9,9 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:export-ydpi="96"
    inkscape:export-xdpi="96"
-   inkscape:export-filename="/home/stuart/Documents/encrytion_stuff/Twofish_encryption/S_vector_matmul.png"
+   inkscape:export-filename="/home/stuart/Documents/encrytion_stuff/Twofish_encryption/images/S_vector_matmul.png"
    sodipodi:docname="S_vector_matmul.svg"
-   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
+   inkscape:version="1.0.2 (1.0.2+r75+1)"
    id="svg3252"
    version="1.1"
    viewBox="0 0 197 111"
@@ -22,16 +22,16 @@
   <sodipodi:namedview
      inkscape:window-maximized="1"
      inkscape:window-y="27"
-     inkscape:window-x="67"
-     inkscape:window-height="1025"
-     inkscape:window-width="1853"
+     inkscape:window-x="72"
+     inkscape:window-height="1016"
+     inkscape:window-width="1848"
      showgrid="false"
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="230.02932"
-     inkscape:cx="221.1126"
-     inkscape:zoom="0.7"
+     inkscape:cy="291.02749"
+     inkscape:cx="520.04385"
+     inkscape:zoom="0.98994949"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -46,7 +46,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,6 +54,13 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
+    <rect
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:0.998274;stroke-linejoin:round"
+       id="rect7409"
+       width="191.20859"
+       height="106.13793"
+       x="1.6786584"
+       y="2.6002071" />
     <g
        transform="translate(-5.3585344,-207.01676)"
        id="g4095">
